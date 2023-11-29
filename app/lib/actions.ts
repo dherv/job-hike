@@ -1,9 +1,11 @@
 "use server";
 import { signIn } from "@/auth";
-import * as db from "@/database";
+// import * as db from "@/database";
+import { db } from "@/database";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { z } from "zod";
+// import { db } from "../../mocks/msw/db";
 
 const FormSchema = z.object({
   id: z.string({}),
@@ -56,8 +58,6 @@ export const createJob = async (_prevState: State, formData: FormData) => {
     description: formData.get("description"),
     applicationStatus: formData.get("applicationStatus"),
   });
-
-  console.log({ validatedFields });
   // If form validation fails, return errors early. Otherwise, continue.
   if (!validatedFields.success) {
     return {
@@ -67,10 +67,20 @@ export const createJob = async (_prevState: State, formData: FormData) => {
   }
 
   try {
-    await db.jobs.create({
-      ...validatedFields.data,
+    const newJob = {
+      title: validatedFields.data.title,
+      company: db.company.findFirst({
+        where: {
+          id: {
+            equals: validatedFields.data.companyId,
+          },
+        },
+      }),
       applicationDate: new Date(validatedFields.data.applicationDate),
-    });
+    };
+    console.log({ newJob, validatedFields, companies: db.company.getAll() });
+    await db.job.create(newJob);
+    console.log(db.job.getAll());
   } catch (error) {
     return {
       message: "Database Error: Failed to Create Job.",
@@ -97,10 +107,16 @@ export const updateJob = async (id: string, formData: FormData) => {
   });
 
   try {
-    await db.jobs.update(id, {
-      id,
-      ...job,
-      applicationDate: new Date(job.applicationDate),
+    await db.job.update({
+      where: {
+        id: {
+          equals: id,
+        },
+      },
+      data: {
+        ...job,
+        applicationDate: new Date(job.applicationDate),
+      },
     });
   } catch (error) {
     return {
@@ -114,7 +130,13 @@ export const updateJob = async (id: string, formData: FormData) => {
 
 export const deleteJob = async (id: string) => {
   try {
-    await db.jobs.delete(id);
+    await db.job.delete({
+      where: {
+        id: {
+          equals: id,
+        },
+      },
+    });
   } catch (error) {
     return {
       message: "Database Error: Failed to Delete Job.",

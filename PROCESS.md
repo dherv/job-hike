@@ -78,6 +78,10 @@ console.log("init database done");
 export { companies, jobs };
 
 ```
+
+
+Add instrumentationHook to next.config.js
+and load initdb in there
 ## 2. create data handlers
 
 `app/lib/data.ts`: create one handler for each piece of data 
@@ -143,6 +147,8 @@ Add validation with zod
 ### custom mocks
 Pros:
 - flexible
+- easy to create
+- good when no big relations
 Cons:
 - time to create
 - need to add promises manually
@@ -150,3 +156,22 @@ Cons:
 - complex to get relations between data
 - type mismatch between state and actions
 - if auth, need to seed users and add relation to jobs and companies...
+
+## @mswjs/data
+Cons:
+- issue generating the types [can be bypassed with proper Value type]
+- issue with promise like bcrypt.hash [but can use hashSync]
+- prisma format 
+
+## json-server
+
+Cons: 
+- actual urls so cant be use at db layer
+
+## sqlite
+Pros: 
+- promise included
+- close to actual db
+- persistent 
+
+Cons:

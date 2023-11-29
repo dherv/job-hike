@@ -1,19 +1,25 @@
-import mockCompanies from "../mocks/companies";
-import mockJobs from "../mocks/jobs";
-import { mockUsers } from "../mocks/users";
-import { CompanyState } from "./states/company";
-import { JobState } from "./states/job";
-import { UserState } from "./states/users";
+import { db } from "../mocks/msw/db";
 
-const companies = new CompanyState();
-const jobs = new JobState([], companies);
-export const users = new UserState();
+/** Custom mocks part */
+// const companies = new CompanyState();
+// const jobs = new JobState([], companies);
+// export const users = new UserState();
 
-// Initialize your mock databases with some data if needed
-mockUsers.forEach((user) => users.create(user));
-mockJobs.forEach((job) => jobs.create(job));
-mockCompanies.forEach((company) => companies.create(company));
+// // Initialize your mock databases with some data if needed
+// mockUsers.forEach((user) => users.create(user));
+// mockJobs.forEach((job) => jobs.create(job));
+// mockCompanies.forEach((company) => companies.create(company));
 
-console.log("init database done");
+/** MSW mocks part */
+const dbInit = () => {
+  db.user.create();
+  const company = db.company.create();
+  db.job.create({ company });
 
-export { companies, jobs };
+  console.log("init database done");
+};
+
+dbInit();
+
+// export { companies, jobs };
+export { db, dbInit };

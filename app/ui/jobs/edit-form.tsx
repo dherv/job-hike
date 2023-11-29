@@ -1,7 +1,8 @@
 import { updateJob } from "@/app/lib/actions";
 import { Company } from "@/database/states/company";
-import { Job } from "@/database/states/job";
+
 import { FC } from "react";
+import { Job } from "../../../mocks/msw/db";
 
 export const JobEditForm: FC<{
   id: string;
@@ -54,7 +55,7 @@ export const JobEditForm: FC<{
 
       <div>
         <label htmlFor="companyId">company</label>
-        <select id="companyId" name="companyId" defaultValue={job.companyId}>
+        <select id="companyId" name="companyId" defaultValue={job.company?.id}>
           {companies.map((company) => (
             <option key={company.id} value={company.id}>
               {company.name}

@@ -13,6 +13,7 @@ export default async function Page({ params }: { params: { id: string } }) {
     return notFound();
   }
 
+  console.log({ job });
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <JobEditForm companies={companies} id={id} job={job} />

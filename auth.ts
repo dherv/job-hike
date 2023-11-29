@@ -5,12 +5,21 @@ import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { z } from "zod";
 import { authConfig } from "./auth.config";
-import { users } from "./database";
 import { User } from "./database/states/users";
+import { db } from "./mocks/msw/db";
 
-async function getUser(email: string): Promise<User | undefined> {
+async function getUser(email: string): Promise<User | undefined | null> {
   try {
-    const user = await users.getByEmail(email);
+    console.log(db.user.getAll());
+    const user = await db.user.findFirst({
+      where: {
+        email: {
+          equals: email,
+        },
+      },
+    });
+
+    console.log({ user });
     return user;
   } catch (error) {
     console.error("Failed to fetch user:", error);
