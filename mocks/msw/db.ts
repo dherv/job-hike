@@ -10,37 +10,43 @@ import {
 import bcrypt from "bcrypt";
 faker.seed(1234);
 
-export const db = factory({
-  // Create a "user" model,
-  user: {
-    // ...with these properties and value getters.
-    id: primaryKey(faker.string.uuid),
-    name: faker.person.firstName,
-    email: () => "user@nextmail.com",
-    password: () => bcrypt.hashSync("123456", 10),
-  },
-  job: {
-    id: primaryKey(faker.string.uuid),
-    title: faker.person.jobTitle,
-    company: nullable(oneOf("company")),
-    applicationDate: () => faker.date.future({ years: 1 }),
-    applicationMethod: () =>
-      faker.helpers.arrayElement(["online", "email", "agent"]),
-    applicationStatus: () =>
-      faker.helpers.arrayElement(["in-progress", "pending", "rejected"]),
-    contactInformation: faker.internet.email,
-    description: faker.lorem.paragraph,
-    notes: faker.lorem.paragraph,
-    url: faker.internet.url,
-    source: faker.internet.url,
-  },
-  company: {
-    id: primaryKey(faker.string.uuid),
-    name: faker.company.name,
-    website: faker.internet.url,
-    // jobs: manyOf("job"),
-  },
-});
+export const createDB = () => {
+  const db = factory({
+    // Create a "user" model,
+    user: {
+      // ...with these properties and value getters.
+      id: primaryKey(faker.string.uuid),
+      name: faker.person.firstName,
+      email: () => "user@nextmail.com",
+      password: () => bcrypt.hashSync("123456", 10),
+    },
+    job: {
+      id: primaryKey(faker.string.uuid),
+      title: faker.person.jobTitle,
+      company: nullable(oneOf("company")),
+      applicationDate: () => faker.date.future({ years: 1 }),
+      applicationMethod: () =>
+        faker.helpers.arrayElement(["online", "email", "agent"]),
+      applicationStatus: () =>
+        faker.helpers.arrayElement(["in-progress", "pending", "rejected"]),
+      contactInformation: faker.internet.email,
+      description: faker.lorem.paragraph,
+      notes: faker.lorem.paragraph,
+      url: faker.internet.url,
+      source: faker.internet.url,
+    },
+    company: {
+      id: primaryKey(faker.string.uuid),
+      name: faker.company.name,
+      website: faker.internet.url,
+      // jobs: manyOf("job"),
+    },
+  });
+  const company = db.company.create();
+  db.job.create({ company });
+  db.user.create();
+  return db;
+};
 
 export type DB = typeof db;
 
@@ -53,3 +59,11 @@ export type Value<Key extends keyof DB> = Omit<
 export type User = Value<"user">;
 export type Job = Value<"job">;
 export type Company = Value<"company">;
+
+const globalForDb = globalThis as unknown as {
+  db: any;
+};
+
+export const db = globalForDb.db ?? createDB();
+
+if (process.env.NODE_ENV !== "production") globalForDb.db = db;
