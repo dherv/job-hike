@@ -11,15 +11,15 @@ import { db } from "../mocks/msw/db";
 // mockCompanies.forEach((company) => companies.create(company));
 
 /** MSW mocks part */
-const dbInit = () => {
-  db.user.create();
-  const company = db.company.create();
-  db.job.create({ company });
+// const dbInit = () => {
+db.user.create();
+const company = db.company.create();
+db.job.create({ company });
 
-  console.log("init database done");
-};
+//   console.log("init database done");
+// };
 
-dbInit();
+// dbInit();
 
 // export { companies, jobs };
-export { db, dbInit };
+export { db };

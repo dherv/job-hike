@@ -1,6 +1,6 @@
+import { deleteJob } from "@/app/lib/actions";
 import { PencilIcon, PlusIcon, TrashIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
-import { deleteJob } from "../../lib/actions";
 
 export const CreateJobButton = () => {
   return (

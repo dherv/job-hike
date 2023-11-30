@@ -3,7 +3,6 @@ import {
   ENTITY_TYPE,
   PRIMARY_KEY,
   factory,
-  manyOf,
   nullable,
   oneOf,
   primaryKey,
@@ -39,7 +38,7 @@ export const db = factory({
     id: primaryKey(faker.string.uuid),
     name: faker.company.name,
     website: faker.internet.url,
-    jobs: manyOf("job"),
+    // jobs: manyOf("job"),
   },
 });
 

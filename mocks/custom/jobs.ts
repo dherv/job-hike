@@ -1,4 +1,4 @@
-import { Job } from "../../database/states/job";
+import { Job } from "../../database/custom/states/job";
 
 const mockJobs: Job[] = [
   {

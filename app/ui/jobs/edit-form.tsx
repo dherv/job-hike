@@ -1,12 +1,10 @@
 import { updateJob } from "@/app/lib/actions";
-import { Company } from "@/database/states/company";
-
+import { Company, Job } from "@prisma/client";
 import { FC } from "react";
-import { Job } from "../../../mocks/msw/db";
 
 export const JobEditForm: FC<{
   id: string;
-  job: Job;
+  job: Job & { company: Company };
   companies: Company[];
 }> = ({ id, job, companies }) => {
   const updateJobAction = updateJob.bind(null, id);
@@ -69,12 +67,12 @@ export const JobEditForm: FC<{
           id="contactInformation"
           type="email"
           name={"contactInformation"}
-          defaultValue={job.contactInformation}
+          defaultValue={job.contactInformation ?? ``}
         />
       </div>
       <div>
         <label htmlFor="url">url</label>
-        <input id="url" type="url" name={"url"} defaultValue={job.url} />
+        <input id="url" type="url" name={"url"} defaultValue={job.url ?? ``} />
       </div>
       <div>
         <label htmlFor="source">source</label>
@@ -82,7 +80,7 @@ export const JobEditForm: FC<{
           id="source"
           type="text"
           name={"source"}
-          defaultValue={job.source}
+          defaultValue={job.source ?? ``}
         />
       </div>
       <div>
@@ -90,11 +88,14 @@ export const JobEditForm: FC<{
         <textarea
           name="description"
           id="description"
-          defaultValue={job.description}></textarea>
+          defaultValue={job.description ?? ``}></textarea>
       </div>
       <div>
         <label htmlFor="notes">notes</label>
-        <textarea name="notes" id="notes" defaultValue={job.notes}></textarea>
+        <textarea
+          name="notes"
+          id="notes"
+          defaultValue={job.notes ?? ``}></textarea>
       </div>
       <button>submit</button>
     </form>

@@ -1,4 +1,4 @@
-import { Company } from "../../database/states/company";
+import { Company } from "../../database/custom/states/company";
 
 const mockCompanies: Company[] = [
   {

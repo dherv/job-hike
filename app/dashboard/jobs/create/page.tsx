@@ -1,4 +1,4 @@
-import { fetchCompanies } from "../../../lib/data";
+import { fetchCompanies } from "../../../lib/handlers";
 import { JobCreateForm } from "../../../ui/jobs/create-form";
 
 export default async function Page() {

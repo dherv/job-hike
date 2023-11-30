@@ -1,9 +1,8 @@
-import { fetchJobs } from "../../lib/data";
+import { fetchJobs } from "@/app/lib/handlers";
 import { DeleteJobButton, UpdateJobButton } from "./buttons";
 
 export const Table = async () => {
   const jobs = await fetchJobs();
-  console.log({ jobs });
   return (
     <table>
       <thead>

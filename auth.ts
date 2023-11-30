@@ -4,28 +4,8 @@ import bcrypt from "bcrypt";
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { z } from "zod";
+import { getUser } from "./app/lib/actions/actions.prisma";
 import { authConfig } from "./auth.config";
-import { User } from "./database/states/users";
-import { db } from "./mocks/msw/db";
-
-async function getUser(email: string): Promise<User | undefined | null> {
-  try {
-    console.log(db.user.getAll());
-    const user = await db.user.findFirst({
-      where: {
-        email: {
-          equals: email,
-        },
-      },
-    });
-
-    console.log({ user });
-    return user;
-  } catch (error) {
-    console.error("Failed to fetch user:", error);
-    throw new Error("Failed to fetch user.");
-  }
-}
 
 export const { auth, signIn, signOut } = NextAuth({
   ...authConfig,
@@ -36,12 +16,14 @@ export const { auth, signIn, signOut } = NextAuth({
           .object({ email: z.string().email(), password: z.string().min(6) })
           .safeParse(credentials);
 
+        console.log({ parsedCredentials });
         if (parsedCredentials.success) {
           const { email, password } = parsedCredentials.data;
           const user = await getUser(email);
+          console.log({ user });
           if (!user) return null;
           const passwordsMatch = await bcrypt.compare(password, user.password);
-
+          console.log({ passwordsMatch });
           if (passwordsMatch) return user;
         }
 

@@ -1,14 +1,13 @@
 "use client";
+import { createJob } from "@/app/lib/actions";
 import { FC } from "react";
 import { useFormState } from "react-dom";
-import { Company } from "../../../database/states/company";
-import { createJob } from "../../lib/actions";
+import { Company } from "../../../database/custom/states/company";
 
 export const JobCreateForm: FC<{ companies: Company[] }> = ({ companies }) => {
   const initialState = { message: "", errors: {} };
   const [state, dispatch] = useFormState(createJob, initialState);
 
-  console.log({ state });
   return (
     <form action={dispatch}>
       <div>

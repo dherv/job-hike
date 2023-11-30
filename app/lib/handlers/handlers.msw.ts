@@ -1,7 +1,7 @@
 // import * as db from "@/database";
 
+import { db } from "@/mocks/msw/db";
 import { unstable_noStore as noStore } from "next/cache";
-import { db } from "../../mocks/msw/db";
 
 /** Custom mocks actions */
 // export const fetchJobs = async () => {
@@ -26,9 +26,12 @@ export const fetchJobs = async () => {
   return await db.job.getAll();
 };
 
+export const createJobAction = async (job: any) => {
+  noStore();
+  return await db.job.create(job);
+};
 export const fetchJobById = async (id: string) => {
   noStore();
-  console.log(id);
   return await db.job.findFirst({
     where: {
       id: {

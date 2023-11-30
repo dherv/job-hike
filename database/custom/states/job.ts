@@ -1,5 +1,5 @@
+import { ZJobSchema } from "@/app/lib/actions/actions.prisma";
 import { v4 as uuidv4 } from "uuid";
-import { ZJobSchema } from "../../app/lib/actions";
 import { CompanyState } from "./company";
 
 export type Job = Omit<ZJobSchema, "applicationDate"> & {

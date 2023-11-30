@@ -158,10 +158,28 @@ Cons:
 - if auth, need to seed users and add relation to jobs and companies...
 
 ## @mswjs/data
+Pros:
+- easy to create
+- easy to generate mocks with faker
 Cons:
 - issue generating the types [can be bypassed with proper Value type]
 - issue with promise like bcrypt.hash [but can use hashSync]
 - prisma format 
+- hard to debug (issue with data not inserted)
+- errors in nextjs13:
+{
+  companies: [
+    {
+      id: '8700c4e3-5b9e-41f5-91e6-a768cc5796d9',
+      name: 'Schmitt, Bauch and Considine',
+      website: 'https://rough-input.net',
+      [Symbol(type)]: 'company',
+      [Symbol(primaryKey)]: 'id'
+    }
+  ]
+}
+Warning: Only plain objects can be passed to Client Components from Server Components. Objects with symbol properties like type are not supported.
+  [{id: ..., name: ..., website: ...}]
 
 ## json-server
 
@@ -170,8 +188,12 @@ Cons:
 
 ## sqlite
 Pros: 
+- easy setup and fast
 - promise included
 - close to actual db
 - persistent 
 
 Cons:
+- need prisma
+- does not support enums
+- need to setup nextauth with adapter if using user table
