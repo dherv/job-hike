@@ -1,7 +1,7 @@
-let createJob: typeof import("./actions/actions.prisma").createJob;
-let updateJob: typeof import("./actions/actions.prisma").updateJob;
-let deleteJob: typeof import("./actions/actions.prisma").deleteJob;
-let authenticate: typeof import("./actions/actions.prisma").authenticate;
+let createJob: typeof import("./actions/actions.json-server").createJob;
+let updateJob: typeof import("./actions/actions.json-server").updateJob;
+let deleteJob: typeof import("./actions/actions.json-server").deleteJob;
+let authenticate: typeof import("./actions/actions.json-server").authenticate;
 
 if (process.env.NEXT_PUBLIC_MOCK_TYPE === "msw") {
   createJob = require("./actions/actions.msw").createJob;
@@ -25,10 +25,10 @@ if (process.env.NEXT_PUBLIC_MOCK_TYPE === "prisma") {
 }
 
 if (process.env.NEXT_PUBLIC_MOCK_TYPE === "json-server") {
-  createJob = require("./actions/actions.json_server").createJob;
-  updateJob = require("./actions/actions.json_server").updateJob;
-  deleteJob = require("./actions/actions.json_server").deleteJob;
-  authenticate = require("./actions/actions.json_server").authenticate;
+  createJob = require("./actions/actions.json-server").createJob;
+  updateJob = require("./actions/actions.json-server").updateJob;
+  deleteJob = require("./actions/actions.json-server").deleteJob;
+  authenticate = require("./actions/actions.json-server").authenticate;
 }
 
 export { authenticate, createJob, deleteJob, updateJob };

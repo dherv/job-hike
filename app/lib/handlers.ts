@@ -19,9 +19,9 @@ if (process.env.NEXT_PUBLIC_MOCK_TYPE === "prisma") {
   fetchCompanies = require("./handlers/handlers.prisma").fetchCompanies;
 }
 if (process.env.NEXT_PUBLIC_MOCK_TYPE === "json-server") {
-  fetchJobs = require("./handlers/handlers.json_server").fetchJobs;
-  fetchJobById = require("./handlers/handlers.json_server").fetchJobById;
-  fetchCompanies = require("./handlers/handlers.json_server").fetchCompanies;
+  fetchJobs = require("./handlers/handlers.json-server").fetchJobs;
+  fetchJobById = require("./handlers/handlers.json-server").fetchJobById;
+  fetchCompanies = require("./handlers/handlers.json-server").fetchCompanies;
 }
 
 export { fetchCompanies, fetchJobById, fetchJobs };

@@ -205,7 +205,9 @@ Cons:
 
 
 
-
+## Tests
+- jest difficult to setup with nextjs especially with server components and server actions
+- cypress easy to setup and run but issue with persisted data
 
 
 ## NEXTJS
