@@ -202,3 +202,15 @@ Cons:
 - need prisma
 - does not support enums
 - need to setup nextauth with adapter if using user table
+
+
+
+
+
+
+## NEXTJS
+- issue with server components and server actions especially when it comes to testing
+- issue with some setups like msw (need to use globalThis)
+> so far not possible to test components with server components and server actions, even using node as environment in jest and exporting functions in their own files
+
+## CLIENT

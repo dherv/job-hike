@@ -148,7 +148,6 @@ export const deleteJob = async (id: string) => {
 };
 
 export async function getUser(email: string) {
-  console.log({ email });
   try {
     return await db.user.findFirst({
       where: {

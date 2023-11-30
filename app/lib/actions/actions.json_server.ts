@@ -58,7 +58,6 @@ export const createJob = async (_prevState: State, formData: FormData) => {
     applicationStatus: formData.get("applicationStatus"),
   });
 
-  console.log({ validatedFields });
   // If form validation fails, return errors early. Otherwise, continue.
   if (!validatedFields.success) {
     return {
@@ -82,7 +81,6 @@ export const createJob = async (_prevState: State, formData: FormData) => {
       body: JSON.stringify(validatedFields.data),
     });
   } catch (error) {
-    console.log({ error });
     return {
       message: "Database Error: Failed to Create Job.",
     };
@@ -142,7 +140,6 @@ export const deleteJob = async (id: string) => {
 };
 
 export async function getUser(email: string) {
-  console.log({ email });
   try {
     fetch(`http://localhost:3004/users?email=${email}`);
   } catch (error) {
