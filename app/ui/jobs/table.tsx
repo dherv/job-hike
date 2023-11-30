@@ -3,6 +3,7 @@ import { DeleteJobButton, UpdateJobButton } from "./buttons";
 
 export const Table = async () => {
   const jobs = await fetchJobs();
+  console.log({ jobs });
   return (
     <table>
       <thead>
@@ -20,7 +21,7 @@ export const Table = async () => {
           <tr key={job.id}>
             <td>{job.title}</td>
             <td>{job.company?.name}</td>
-            <td>{job.applicationDate.toISOString()}</td>
+            <td>{job.applicationDate}</td>
             <td>{job.applicationStatus}</td>
             <td>{job.description}</td>
             <td>

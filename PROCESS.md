@@ -183,12 +183,17 @@ Warning: Only plain objects can be passed to Client Components from Server Compo
 
 ## json-server
 
+Pros:
+- really easy and fast setup
+- can be used with faker
 Cons: 
-- actual urls so cant be use at db layer
+- actual urls so cant be use at db layer, only fetch layer
 
-## sqlite
+
+
+## sqlite (with prisma)
 Pros: 
-- easy setup and fast
+- easy setup and fast. a bit more than json-server
 - promise included
 - close to actual db
 - persistent 

@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "generate:db": "tsc app/lib/database/Company.ts app/lib/database/Job.ts --outFile public/database.js --module amd --moduleResolution node --skipLibCheck"
+    "generate:db": "tsc app/lib/database/Company.ts app/lib/database/Job.ts --outFile public/database.js --module amd --moduleResolution node --skipLibCheck",
+    "json-server": "json-server --watch db.js --port 3004"
   },
   "dependencies": {
     "@heroicons/react": "^2.0.18",
@@ -31,6 +32,7 @@
     "autoprefixer": "^10.0.1",
     "eslint": "^8",
     "eslint-config-next": "14.0.3",
+    "json-server": "^0.17.4",
     "postcss": "^8",
     "prisma": "^5.6.0",
     "tailwindcss": "^3.3.0",
