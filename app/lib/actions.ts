@@ -10,6 +10,13 @@ if (process.env.NEXT_PUBLIC_MOCK_TYPE === "msw") {
   authenticate = require("./actions/actions.msw").authenticate;
 }
 
+if (process.env.NEXT_PUBLIC_MOCK_TYPE === "msw-rest") {
+  createJob = require("./actions/actions.msw-rest").createJob;
+  updateJob = require("./actions/actions.msw-rest").updateJob;
+  deleteJob = require("./actions/actions.msw-rest").deleteJob;
+  authenticate = require("./actions/actions.msw-rest").authenticate;
+}
+
 if (process.env.NEXT_PUBLIC_MOCK_TYPE === "prisma") {
   createJob = require("./actions/actions.prisma").createJob;
   updateJob = require("./actions/actions.prisma").updateJob;

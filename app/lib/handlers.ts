@@ -7,6 +7,12 @@ if (process.env.NEXT_PUBLIC_MOCK_TYPE === "msw") {
   fetchJobById = require("./handlers/handlers.msw").fetchJobById;
   fetchCompanies = require("./handlers/handlers.msw").fetchCompanies;
 }
+if (process.env.NEXT_PUBLIC_MOCK_TYPE === "msw-rest") {
+  fetchJobs = require("./handlers/handlers.msw-rest").fetchJobs;
+  fetchJobById = require("./handlers/handlers.msw-rest").fetchJobById;
+  fetchCompanies = require("./handlers/handlers.msw-rest").fetchCompanies;
+}
+
 if (process.env.NEXT_PUBLIC_MOCK_TYPE === "prisma") {
   fetchJobs = require("./handlers/handlers.prisma").fetchJobs;
   fetchJobById = require("./handlers/handlers.prisma").fetchJobById;

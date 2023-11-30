@@ -1,12 +1,9 @@
 "use server";
-import { signIn } from "@/auth";
-// import * as db from "@/database";
-import { createJobAction } from "@/app/lib/handlers/handlers.msw";
-import { db } from "@/database";
+import { auth, signIn } from "@/auth";
+
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { z } from "zod";
-// import { db } from "../../mocks/msw/db";
 
 const FormSchema = z.object({
   id: z.string({}),
@@ -45,6 +42,7 @@ export type State = {
 
 const CreateJobSchema = FormSchema.omit({ id: true });
 export type ZJobSchema = z.infer<typeof FormSchema>;
+
 export const createJob = async (_prevState: State, formData: FormData) => {
   // validate the content
   const validatedFields = CreateJobSchema.safeParse({
@@ -59,6 +57,8 @@ export const createJob = async (_prevState: State, formData: FormData) => {
     description: formData.get("description"),
     applicationStatus: formData.get("applicationStatus"),
   });
+
+  console.log({ validatedFields });
   // If form validation fails, return errors early. Otherwise, continue.
   if (!validatedFields.success) {
     return {
@@ -67,20 +67,22 @@ export const createJob = async (_prevState: State, formData: FormData) => {
     };
   }
 
+  // const { companyId, applicationDate, ...data } = validatedFields.data;
   try {
-    const newJob = {
-      title: validatedFields.data.title,
-      company: db.company.findFirst({
-        where: {
-          id: {
-            equals: validatedFields.data.companyId,
-          },
-        },
-      }),
-      applicationDate: new Date(validatedFields.data.applicationDate),
-    };
-    await createJobAction(newJob);
+    const session = await auth();
+    if (!session?.user?.email) {
+      throw new Error("No user email found");
+    }
+
+    fetch("/jobs", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(validatedFields.data),
+    });
   } catch (error) {
+    console.log({ error });
     return {
       message: "Database Error: Failed to Create Job.",
     };
@@ -106,16 +108,12 @@ export const updateJob = async (id: string, formData: FormData) => {
   });
 
   try {
-    await db.job.update({
-      where: {
-        id: {
-          equals: id,
-        },
-      },
-      data: {
+    fetch(`/jobs/${id}`, {
+      method: "PUT",
+      body: JSON.stringify({
         ...job,
         applicationDate: new Date(job.applicationDate),
-      },
+      }),
     });
   } catch (error) {
     return {
@@ -129,12 +127,8 @@ export const updateJob = async (id: string, formData: FormData) => {
 
 export const deleteJob = async (id: string) => {
   try {
-    await db.job.delete({
-      where: {
-        id: {
-          equals: id,
-        },
-      },
+    fetch(`/jobs/${id}`, {
+      method: "DELETE",
     });
   } catch (error) {
     return {
@@ -150,13 +144,7 @@ export const deleteJob = async (id: string) => {
 export async function getUser(email: string) {
   console.log({ email });
   try {
-    return await db.user.findFirst({
-      where: {
-        email: {
-          equals: email,
-        },
-      },
-    });
+    fetch(`http://localhost:3000/api/users?email=${email}`);
   } catch (error) {
     console.error("Failed to fetch user:", error);
     throw new Error("Failed to fetch user.");
