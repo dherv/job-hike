@@ -3,6 +3,13 @@ let updateJob: typeof import("./actions/actions.json-server").updateJob;
 let deleteJob: typeof import("./actions/actions.json-server").deleteJob;
 let authenticate: typeof import("./actions/actions.json-server").authenticate;
 
+if (process.env.NEXT_PUBLIC_MOCK_TYPE === "custom") {
+  createJob = require("./actions/actions.custom").createJob;
+  updateJob = require("./actions/actions.custom").updateJob;
+  deleteJob = require("./actions/actions.custom").deleteJob;
+  authenticate = require("./actions/actions.custom").authenticate;
+}
+
 if (process.env.NEXT_PUBLIC_MOCK_TYPE === "msw") {
   createJob = require("./actions/actions.msw").createJob;
   updateJob = require("./actions/actions.msw").updateJob;

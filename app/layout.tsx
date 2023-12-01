@@ -1,4 +1,5 @@
-import "@/mocks/msw/db";
+// import "@/mocks/msw/db";
+import "@/database";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";

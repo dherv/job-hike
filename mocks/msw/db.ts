@@ -104,4 +104,4 @@ export const db = globalForDb.db ?? createDB();
 // server.listHandlers();
 
 if (process.env.NODE_ENV !== "production") globalForDb.db = db;
-console.log("after", globalForDb.db);
+// console.log("after", globalForDb.db);

@@ -2,6 +2,11 @@ let fetchJobs: typeof import("./handlers/handlers.prisma").fetchJobs;
 let fetchJobById: typeof import("./handlers/handlers.prisma").fetchJobById;
 let fetchCompanies: typeof import("./handlers/handlers.prisma").fetchCompanies;
 
+if (process.env.NEXT_PUBLIC_MOCK_TYPE === "custom") {
+  fetchJobs = require("./handlers/handlers.custom").fetchJobs;
+  fetchJobById = require("./handlers/handlers.custom").fetchJobById;
+  fetchCompanies = require("./handlers/handlers.custom").fetchCompanies;
+}
 if (process.env.NEXT_PUBLIC_MOCK_TYPE === "msw") {
   fetchJobs = require("./handlers/handlers.msw").fetchJobs;
   fetchJobById = require("./handlers/handlers.msw").fetchJobById;
