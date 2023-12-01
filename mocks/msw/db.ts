@@ -44,7 +44,6 @@ export const createDB = () => {
     },
   });
   const company = db.company.create();
-  console.log("HERE");
   db.job.create({ company });
   db.user.create();
   return db;
@@ -66,9 +65,9 @@ const globalForDb = globalThis as unknown as {
   db: any;
 };
 
-console.log("before", globalForDb.db);
-export const db = globalForDb.db ?? createDB();
-
+const db: ReturnType<typeof createDB> = globalForDb.db ?? createDB();
+if (process.env.NODE_ENV !== "production") globalForDb.db = db;
+export { db };
 // const userHandlers = [
 //   http.get("http://localhost:3000/api/users", (req, _res, _cxt) => {
 //     // Construct a URL instance out of the intercepted request.
@@ -103,5 +102,4 @@ export const db = globalForDb.db ?? createDB();
 // server.listen();
 // server.listHandlers();
 
-if (process.env.NODE_ENV !== "production") globalForDb.db = db;
 // console.log("after", globalForDb.db);
