@@ -1,11 +1,12 @@
 import { fetchCompanies } from "../../../lib/handlers";
 import { JobCreateForm } from "../../../ui/jobs/create-form";
+import { PageLayout } from "../../../ui/layout/page-layout";
 
 export default async function Page() {
   const companies = await fetchCompanies();
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <PageLayout title="Create Job">
       <JobCreateForm companies={companies} />
-    </main>
+    </PageLayout>
   );
 }

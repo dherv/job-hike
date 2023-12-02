@@ -3,6 +3,13 @@ import Link from "next/link";
 import { deleteJob } from "../../lib/actions/actions.json-server";
 import { LinkButton } from "../layout/link-button";
 
+export const Button = ({ children }: { children: React.ReactNode }) => {
+  return (
+    <button className="flex w-fit bg-primary-900 text-white hover:bg-primary-700 py-2 px-6 rounded">
+      {children}
+    </button>
+  );
+};
 export const CreateJobButton = () => {
   return (
     <LinkButton href={"/dashboard/jobs/create"}>
