@@ -35,12 +35,13 @@ export const Select = ({
   name,
   options,
   errors,
+  ...props
 }: {
   label: string;
   name: string;
   options: { key: string; value: string }[];
   errors?: string[];
-}) => {
+} & React.InputHTMLAttributes<HTMLSelectElement>) => {
   return (
     <div>
       <Label name={name}>{label}</Label>
@@ -48,6 +49,7 @@ export const Select = ({
         className="outline-none border-2 border-gray-200 rounded-md px-2 py-1 w-full hover:cursor-pointer"
         id={name}
         name={name}
+        defaultValue={props.defaultValue}
         aria-describedby={`${name}-error`}>
         {options.map((option) => (
           <option key={option.value} value={option.value}>
@@ -64,11 +66,12 @@ export const TextArea = ({
   label,
   name,
   errors,
+  ...props
 }: {
   label: string;
   name: string;
   errors?: string[];
-}) => {
+} & React.InputHTMLAttributes<HTMLTextAreaElement>) => {
   return (
     <div>
       <Label name={name}>{label}</Label>
@@ -77,6 +80,7 @@ export const TextArea = ({
         id={name}
         name={name}
         aria-describedby={`${name}-error`}
+        defaultValue={props.defaultValue}
       />
       <Errors name={name} errors={errors} />
     </div>
@@ -99,8 +103,9 @@ export const Input = ({
         className="outline-none border-2 border-gray-200 rounded-md px-2 py-1 w-full hover:cursor-pointer"
         id={label}
         type={props.type}
-        name={label}
+        name={name}
         aria-describedby={`${name}-error`}
+        defaultValue={props.defaultValue}
       />
       <Errors name={name} errors={errors} />
     </div>

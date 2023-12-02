@@ -19,7 +19,7 @@ module.exports = () => {
           "Seeking a skilled software engineer for exciting projects.",
         applicationDate: new Date("2023-01-15"),
         applicationMethod: "online",
-        contactInformation: "John Doe, HR Manager",
+        contactInformation: "john.doe@gmail.com",
         applicationStatus: "pending",
         notes: "Follow up after the interview.",
         url: "https://example.com/job1",

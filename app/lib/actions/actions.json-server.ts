@@ -91,8 +91,13 @@ export const createJob = async (_prevState: State, formData: FormData) => {
 };
 
 const UpdateJobSchema = FormSchema.omit({ id: true });
-export const updateJob = async (id: string, formData: FormData) => {
-  const job = UpdateJobSchema.parse({
+export const updateJob = async (
+  id: string,
+  _prevState: State,
+  formData: FormData
+) => {
+  console.log(formData.get("applicationDate"));
+  const validatedFields = UpdateJobSchema.safeParse({
     title: formData.get("title"),
     companyId: formData.get("companyId"),
     applicationDate: formData.get("applicationDate"),
@@ -105,25 +110,38 @@ export const updateJob = async (id: string, formData: FormData) => {
     applicationStatus: formData.get("applicationStatus"),
   });
 
+  if (!validatedFields.success) {
+    console.log(
+      { validatedFields },
+      validatedFields.error.flatten().fieldErrors
+    );
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: "Missing Fields. Failed to Create Invoice.",
+    };
+  }
+
   try {
     console.log(
       "update body",
       JSON.stringify({
-        ...job,
-        applicationDate: new Date(job.applicationDate),
+        ...validatedFields.data,
+        applicationDate: new Date(validatedFields.data.applicationDate),
       })
     );
+    console.log({ id });
     await fetch(`http://localhost:3004/jobs/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        ...job,
-        applicationDate: new Date(job.applicationDate),
+        ...validatedFields.data,
+        applicationDate: new Date(validatedFields.data.applicationDate),
       }),
     });
   } catch (error) {
+    console.log({ error });
     return {
       message: "Database Error: Failed to Update Job.",
     };

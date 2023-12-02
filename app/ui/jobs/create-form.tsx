@@ -38,8 +38,8 @@ export const JobCreateForm: FC<{ companies: Company[] }> = ({ companies }) => {
         }))}
       />
       <Select
-        name="company"
-        label="application status"
+        name="companyId"
+        label="company"
         errors={state.errors?.companyId}
         options={companies.map((company) => ({
           key: company.name,

@@ -1,6 +1,7 @@
 import { fetchCompanies, fetchJobById } from "@/app/lib/handlers";
 import { JobEditForm } from "@/app/ui/jobs/edit-form";
 import { notFound } from "next/navigation";
+import { PageLayout } from "../../../../ui/layout/page-layout";
 
 export default async function Page({ params }: { params: { id: string } }) {
   const id = params.id;
@@ -14,8 +15,8 @@ export default async function Page({ params }: { params: { id: string } }) {
   }
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <PageLayout title="edit job">
       <JobEditForm companies={companies} id={id} job={job} />
-    </main>
+    </PageLayout>
   );
 }
