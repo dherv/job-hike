@@ -1,15 +1,15 @@
 import { Suspense } from "react";
 import { CreateJobButton } from "../../ui/jobs/buttons";
 import { Table } from "../../ui/jobs/table";
+import { PageLayout } from "../../ui/layout/page-layout";
 
 export default async function Page() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <h1>my jobs</h1>
+    <PageLayout title="Jobs">
       <Suspense fallback={<div>jobs loading</div>}>
         <Table />
       </Suspense>
       <CreateJobButton />
-    </main>
+    </PageLayout>
   );
 }

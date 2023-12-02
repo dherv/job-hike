@@ -1,36 +1,63 @@
 import { fetchJobs } from "@/app/lib/handlers";
 import { DeleteJobButton, UpdateJobButton } from "./buttons";
 
+const TableRow = ({ children }: { children: React.ReactNode }) => {
+  return <tr className="border-b border-primary-100 my-2">{children}</tr>;
+};
+
+const TableHeaderCell = ({ children }: { children: React.ReactNode }) => {
+  return (
+    <th className="text-primary-600 font-semibold text-left px-6 py-4 first:pl-0">
+      {children}
+    </th>
+  );
+};
+
+const TableRowCell = ({ children }: { children: React.ReactNode }) => {
+  return (
+    <th className="text-primary-900 font-normal text-left px-6 py-4 first:pl-0">
+      {children}
+    </th>
+  );
+};
+
 export const Table = async () => {
   const jobs = await fetchJobs();
-  console.log("Table", { jobs });
+
+  const headers = [
+    "title",
+    "company",
+    "application date",
+    "application status",
+    "description",
+    "action",
+  ];
   return (
-    <table>
+    <table className="table-auto rounded-md overflow-hidden border-collapse">
       <thead>
-        <tr>
-          <th>title</th>
-          <th>company</th>
-          <th>application date</th>
-          <th>application status</th>
-          <th>description</th>
-          <th>action</th>
-        </tr>
+        <TableRow>
+          {headers.map((header) => (
+            <TableHeaderCell key={header}>{header}</TableHeaderCell>
+          ))}
+        </TableRow>
       </thead>
       <tbody>
         {jobs.map((job) => (
-          <tr key={job.id}>
-            <td>{job.title}</td>
-            <td>{job.company?.name}</td>
-            <td>{new Date(job.applicationDate).toISOString()}</td>
-            <td>{job.applicationStatus}</td>
-            <td>{job.description}</td>
-            <td>
+          <TableRow key={job.id}>
+            <TableRowCell>{job.title}</TableRowCell>
+            <TableRowCell>{job.company?.name}</TableRowCell>
+            <TableRowCell>
+              {new Date(job.applicationDate).toISOString()}
+            </TableRowCell>
+            <TableRowCell>{job.applicationStatus}</TableRowCell>
+            <TableRowCell>{job.description}</TableRowCell>
+            <TableRowCell>
               <div className="flex justify-end gap-3">
                 <UpdateJobButton id={job.id} />
                 <DeleteJobButton id={job.id} />
               </div>
-            </td>
-          </tr>
+            </TableRowCell>
+          </TableRow>
         ))}
       </tbody>
     </table>

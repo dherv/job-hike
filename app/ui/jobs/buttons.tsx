@@ -1,13 +1,14 @@
-import { deleteJob } from "@/app/lib/actions";
 import { PencilIcon, PlusIcon, TrashIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
+import { deleteJob } from "../../lib/actions/actions.json-server";
+import { LinkButton } from "../layout/link-button";
 
 export const CreateJobButton = () => {
   return (
-    <Link href={"/dashboard/jobs/create"}>
+    <LinkButton href={"/dashboard/jobs/create"}>
       <span>add</span>
-      <PlusIcon />
-    </Link>
+      <PlusIcon className="w-5" />
+    </LinkButton>
   );
 };
 
@@ -17,7 +18,7 @@ export const UpdateJobButton = ({ id }: { id: string }) => {
       data-cy="update-job-button"
       href={`/dashboard/jobs/${id}/edit`}
       className="rounded-md border p-2 hover:bg-gray-100">
-      <PencilIcon className="w-5" />
+      <PencilIcon className="w-4" />
     </Link>
   );
 };
