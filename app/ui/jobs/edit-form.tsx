@@ -21,7 +21,9 @@ export const JobEditForm: FC<{
           id="applicationDate"
           type="date"
           name={"applicationDate"}
-          defaultValue={job.applicationDate.toISOString().split("T")[0]}
+          defaultValue={
+            new Date(job.applicationDate).toISOString().split("T")[0]
+          }
         />
       </div>
       <div>

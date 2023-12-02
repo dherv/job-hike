@@ -17,7 +17,7 @@ module.exports = () => {
         companyId: "101",
         description:
           "Seeking a skilled software engineer for exciting projects.",
-        applicationDate: "2023-01-15",
+        applicationDate: new Date("2023-01-15"),
         applicationMethod: "online",
         contactInformation: "John Doe, HR Manager",
         applicationStatus: "pending",

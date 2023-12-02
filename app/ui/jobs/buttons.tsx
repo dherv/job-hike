@@ -14,6 +14,7 @@ export const CreateJobButton = () => {
 export const UpdateJobButton = ({ id }: { id: string }) => {
   return (
     <Link
+      data-cy="update-job-button"
       href={`/dashboard/jobs/${id}/edit`}
       className="rounded-md border p-2 hover:bg-gray-100">
       <PencilIcon className="w-5" />
@@ -25,7 +26,9 @@ export const DeleteJobButton = ({ id }: { id: string }) => {
   const deleteJobWithId = deleteJob.bind(null, id);
   return (
     <form action={deleteJobWithId}>
-      <button className="rounded-md border p-2 hover:bg-gray-100">
+      <button
+        data-cy="delete-job-button"
+        className="rounded-md border p-2 hover:bg-gray-100">
         <span className="sr-only">Delete</span>
         <TrashIcon className="w-4" />
       </button>

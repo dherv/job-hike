@@ -1,6 +1,6 @@
-let fetchJobs: typeof import("./handlers/handlers.prisma").fetchJobs;
-let fetchJobById: typeof import("./handlers/handlers.prisma").fetchJobById;
-let fetchCompanies: typeof import("./handlers/handlers.prisma").fetchCompanies;
+let fetchJobs: typeof import("./handlers/handlers.json-server").fetchJobs;
+let fetchJobById: typeof import("./handlers/handlers.json-server").fetchJobById;
+let fetchCompanies: typeof import("./handlers/handlers.json-server").fetchCompanies;
 
 if (process.env.NEXT_PUBLIC_MOCK_TYPE === "custom") {
   fetchJobs = require("./handlers/handlers.custom").fetchJobs;

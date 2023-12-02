@@ -73,7 +73,7 @@ export const createJob = async (_prevState: State, formData: FormData) => {
       throw new Error("No user email found");
     }
 
-    fetch("http://localhost:3004/jobs", {
+    await fetch("http://localhost:3004/jobs", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -106,8 +106,18 @@ export const updateJob = async (id: string, formData: FormData) => {
   });
 
   try {
-    fetch(`http://localhost:3004/jobs/${id}`, {
+    console.log(
+      "update body",
+      JSON.stringify({
+        ...job,
+        applicationDate: new Date(job.applicationDate),
+      })
+    );
+    await fetch(`http://localhost:3004/jobs/${id}`, {
       method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({
         ...job,
         applicationDate: new Date(job.applicationDate),
@@ -125,7 +135,7 @@ export const updateJob = async (id: string, formData: FormData) => {
 
 export const deleteJob = async (id: string) => {
   try {
-    fetch(`http://localhost:3004/jobs/${id}`, {
+    await fetch(`http://localhost:3004/jobs/${id}`, {
       method: "DELETE",
     });
   } catch (error) {
@@ -141,7 +151,7 @@ export const deleteJob = async (id: string) => {
 
 export async function getUser(email: string) {
   try {
-    fetch(`http://localhost:3004/users?email=${email}`);
+    await fetch(`http://localhost:3004/users?email=${email}`);
   } catch (error) {
     console.error("Failed to fetch user:", error);
     throw new Error("Failed to fetch user.");
