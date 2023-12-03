@@ -1,11 +1,10 @@
-// import type { User } from "@/app/lib/definitions";
-// import { sql } from "@vercel/postgres";
+"use server";
+import { getUser } from "@/app/api/auth/actions";
+import { authConfig } from "@/auth.config";
 import bcrypt from "bcrypt";
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { z } from "zod";
-import { getUser } from "./app/lib/actions/actions.prisma";
-import { authConfig } from "./auth.config";
 
 export const { auth, signIn, signOut } = NextAuth({
   ...authConfig,
