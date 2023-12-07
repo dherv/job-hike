@@ -2,32 +2,9 @@
 import { auth } from "@/auth";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { z } from "zod";
 import { prisma } from "../../lib/prisma";
-
-// TODO: move to lib/validation and types
-const FormSchema = z.object({
-  id: z.string({}),
-  title: z.string().trim().min(1, { message: "please add a title" }),
-  companyId: z.string({
-    invalid_type_error: "please select a company",
-  }),
-  applicationDate: z
-    .string()
-    .trim()
-    .min(1, { message: "please enter an application date" }),
-  applicationMethod: z.enum(["online", "email", "agent"], {
-    required_error: "please select an application",
-  }),
-  applicationStatus: z.enum(["in-progress", "pending", "rejected"], {
-    required_error: "please select an application status",
-  }),
-  contactInformation: z.string().email({ message: "Invalid email address" }),
-  description: z.string().optional(),
-  notes: z.string().optional(),
-  url: z.string().optional(),
-  source: z.string().optional(),
-});
+import { CreateJobSchema, UpdateJobSchema } from "../../lib/validations/jobs";
+import { jobsService } from "./services";
 
 export type State = {
   errors?: {
@@ -40,9 +17,6 @@ export type State = {
   };
   message?: string | null;
 };
-
-const CreateJobSchema = FormSchema.omit({ id: true });
-export type ZJobSchema = z.infer<typeof FormSchema>;
 
 export const createJob = async (_prevState: State, formData: FormData) => {
   // validate the content
@@ -74,25 +48,14 @@ export const createJob = async (_prevState: State, formData: FormData) => {
       throw new Error("No user email found");
     }
 
-    await prisma.job.create({
-      data: {
+    await jobsService.createJob(
+      {
         ...data,
+        companyId: companyId,
         applicationDate: new Date(applicationDate).toISOString(),
-        user: {
-          connect: {
-            email: session?.user?.email,
-          },
-        },
-        company: {
-          connect: {
-            id: companyId,
-          },
-        },
       },
-      include: {
-        company: true,
-      },
-    });
+      session.user.email
+    );
 
     console.log("created job");
   } catch (error) {
@@ -106,7 +69,6 @@ export const createJob = async (_prevState: State, formData: FormData) => {
   redirect("/dashboard/jobs");
 };
 
-const UpdateJobSchema = FormSchema.omit({ id: true });
 export const updateJob = async (
   id: string,
   _prevState: State,
@@ -133,15 +95,7 @@ export const updateJob = async (
   }
 
   try {
-    await prisma.job.update({
-      where: {
-        id,
-      },
-      data: {
-        ...validatedFields.data,
-        applicationDate: new Date(validatedFields.data.applicationDate),
-      },
-    });
+    await jobsService.updateJob(id, validatedFields.data);
   } catch (error) {
     return {
       message: "Database Error: Failed to Update Job.",
