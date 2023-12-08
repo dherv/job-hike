@@ -11,18 +11,51 @@ datasource db {
 }
 
 model User {
-  id       String  @id @default(uuid())
-  email    String  @unique
+  id       String    @id @default(uuid())
+  email    String    @unique
   name     String?
   password String
+  avatar   String?
   jobs     Job[]
+  Contact  Contact[]
+  Company  Company[]
+}
+
+model Contact {
+  id        String  @id @default(uuid())
+  name      String
+  email     String
+  phone     String?
+  company   Company @relation(fields: [companyId], references: [id])
+  companyId String  @unique
+  user      User    @relation(fields: [userId], references: [id])
+  userId    String
+}
+
+model City {
+  id        String    @id @default(uuid())
+  name      String
+  state     String
+  country   String
+  latitude  Float
+  longitude Float
+  companies Company[]
 }
 
 model Company {
-  id      String @id @default(uuid())
-  name    String
-  website String
-  jobs    Job[]
+  id         String   @id @default(uuid())
+  name       String
+  address    String
+  website    String?
+  careerPage String?
+  source     String?
+  logo       String?
+  city       City     @relation(fields: [cityId], references: [id])
+  cityId     String
+  user       User     @relation(fields: [userId], references: [id])
+  userId     String
+  contact    Contact?
+  jobs       Job[]
 }
 
 model Job {

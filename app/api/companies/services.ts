@@ -1,8 +1,16 @@
+import { auth } from "@/auth";
 import { unstable_noStore as noStore } from "next/cache";
-import { prisma } from "../../lib/prisma";
+import { companiesRepository } from "./repository";
 
 export const fetchCompanies = async () => {
   noStore();
-  const companies = await prisma.company.findMany();
-  return companies;
+  try {
+    const session = await auth();
+    if (!session?.user?.email) {
+      throw new Error("No user found");
+    }
+    await companiesRepository.findAll(session.user.email);
+  } catch (error) {
+    console.log(error);
+  }
 };

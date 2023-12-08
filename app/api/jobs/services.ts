@@ -1,13 +1,21 @@
+import { auth } from "@/auth";
 import { unstable_noStore as noStore } from "next/cache";
 import { CreateJobDto, UdpateJobDto } from "../../lib/validations/jobs";
 import { jobsRepository } from "./repository";
 
-export const fetchJobs = async (userEmail: string) => {
+// TODO: fetchJobs is not really a service. It's more of an action/route handler.
+export const fetchJobs = async () => {
   noStore();
   try {
-    return await jobsRepository.findAll(userEmail);
+    const session = await auth();
+
+    if (!session?.user?.email) {
+      throw new Error("No user found");
+    }
+    return await jobsRepository.findAll(session?.user?.email);
   } catch (error) {
     console.log(error);
+    throw new Error("INTERNAL SERVER ERROR");
   }
 };
 
