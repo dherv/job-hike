@@ -3,10 +3,20 @@ import { z } from "zod";
 export const FormSchema = z.object({
   id: z.string({}),
   name: z.string().trim().min(1, { message: "please add a name" }),
-  contactId: z
-    .string({
-      invalid_type_error: "please select a company",
-    })
+  contactName: z
+    .string()
+    .trim()
+    .min(1, { message: "please add a contact name" })
+    .optional(),
+  contactEmail: z
+    .string()
+    .trim()
+    .min(1, { message: "please add a contact email" })
+    .optional(),
+  contactPhone: z
+    .string()
+    .trim()
+    .min(1, { message: "please add a contact phone" })
     .optional(),
   address: z.string().trim().min(1, { message: "please enter an address" }),
   cityId: z.string().trim().min(1, { message: "please select a city" }),

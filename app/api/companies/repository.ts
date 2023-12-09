@@ -30,7 +30,7 @@ export async function createOne(
   companyDto: CreateCompanyDto,
   userEmail: string
 ) {
-  const { cityId, contactId, ...company } = companyDto;
+  const { cityId, ...company } = companyDto;
   return await prisma.company.create({
     data: {
       ...company,
@@ -44,11 +44,21 @@ export async function createOne(
           id: cityId,
         },
       },
-      contact: {
-        connect: {
-          id: contactId,
-        },
-      },
+      contact:
+        company.contactName && company.contactEmail
+          ? {
+              create: {
+                name: company.contactName,
+                email: company.contactEmail,
+                phone: company.contactPhone,
+                user: {
+                  connect: {
+                    email: userEmail,
+                  },
+                },
+              },
+            }
+          : undefined,
     },
   });
 }

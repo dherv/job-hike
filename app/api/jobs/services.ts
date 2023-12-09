@@ -33,6 +33,7 @@ export const createJob = async (job: CreateJobDto, userEmail: string) => {
     );
   } catch (error) {
     console.log(error);
+    throw new Error("INTERNAL SERVER ERROR");
   }
 };
 
@@ -45,6 +46,7 @@ export const updateJob = async (id: string, job: UdpateJobDto) => {
     });
   } catch (error) {
     console.log(error);
+    throw new Error("INTERNAL SERVER ERROR");
   }
 };
 
@@ -54,6 +56,7 @@ export const fetchJobById = async (id: string) => {
     return await jobsRepository.findOneById(id);
   } catch (error) {
     console.log(error);
+    throw new Error("INTERNAL SERVER ERROR");
   }
 };
 

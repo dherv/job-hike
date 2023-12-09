@@ -9,8 +9,9 @@ export const fetchCompanies = async () => {
     if (!session?.user?.email) {
       throw new Error("No user found");
     }
-    await companiesRepository.findAll(session.user.email);
+    return await companiesRepository.findAll(session.user.email);
   } catch (error) {
     console.log(error);
+    throw new Error("INTERNAL SERVER ERROR");
   }
 };

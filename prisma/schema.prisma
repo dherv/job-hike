@@ -17,8 +17,8 @@ model User {
   password String
   avatar   String?
   jobs     Job[]
-  Contact  Contact[]
-  Company  Company[]
+  contact  Contact[]
+  company  Company[]
 }
 
 model Contact {
