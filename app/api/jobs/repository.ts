@@ -3,13 +3,12 @@ import { CreateJobDto } from "../../lib/validations/jobs";
 
 // TODO: MAKE IT USER RELATED
 // TODO: FIND A WAY TO PASS THE USER ID
-const tableName = "jobs";
 
 // TODO: we can override the returned type. better than as alias later in queries.
 export async function findAll(userEmail: string) {
   return await prisma.job.findMany({
     where: { user: { email: userEmail } },
-    include: { company: true },
+    include: { company: { include: { city: true } } },
   });
 }
 

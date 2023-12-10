@@ -1,13 +1,13 @@
 import { Suspense } from "react";
-import { PageLayout } from "../../../ui/layout/page-layout";
-import { CreateJobButton } from "../../../ui/pages/jobs/buttons";
-import { Table } from "../../../ui/pages/jobs/table";
+import { PageLayout } from "@/app/ui/layout/page-layout";
+import { CreateJobButton } from "@/app/ui/pages/jobs/buttons";
+import { JobList } from "@/app/ui/pages/jobs/list";
 
 export default async function Page() {
   return (
     <PageLayout title="Jobs">
       <Suspense fallback={<div>jobs loading</div>}>
-        <Table />
+        <JobList />
       </Suspense>
       <CreateJobButton />
     </PageLayout>
