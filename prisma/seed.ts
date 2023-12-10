@@ -9,7 +9,7 @@ async function main() {
       name: "Admin",
       email: "user@nextmail.com",
       password: bcrypt.hashSync("123456", 10),
-      avatar: "https://i.pravatar.cc/{size}",
+      avatar: "https://i.pravatar.cc/300",
     },
   });
 
