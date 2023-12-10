@@ -3,7 +3,7 @@ import { LinkNav } from "./link-nav";
 import { Logo } from "./logo";
 import { LogoutButton } from "./logout-button";
 
-export const SideNav = () => {
+const Nav = () => {
   return (
     <nav className="fixed h-screen left-0 p-4 flex flex-col gap-4 justify-between">
       <div>
@@ -22,5 +22,13 @@ export const SideNav = () => {
       </div>
       <LogoutButton />
     </nav>
+  );
+};
+
+export const Aside = () => {
+  return (
+    <aside className="w-full flex-none md:w-64">
+      <Nav />
+    </aside>
   );
 };

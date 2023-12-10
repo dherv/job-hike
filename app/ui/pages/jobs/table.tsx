@@ -1,5 +1,5 @@
 import { fetchJobs } from "@/app/api/jobs/services";
-import { DeleteJobButton, UpdateJobButton } from "./buttons";
+import { JobCard } from "./card";
 
 const TableRow = ({ children }: { children: React.ReactNode }) => {
   return <tr className="border-b border-primary-100 my-2">{children}</tr>;
@@ -34,33 +34,40 @@ export const Table = async () => {
     "action",
   ];
   return (
-    <table className="table-auto rounded-md overflow-hidden border-collapse">
-      <thead>
-        <TableRow>
-          {headers.map((header) => (
-            <TableHeaderCell key={header}>{header}</TableHeaderCell>
-          ))}
-        </TableRow>
-      </thead>
-      <tbody>
-        {jobs.map((job) => (
-          <TableRow key={job.id}>
-            <TableRowCell>{job.title}</TableRowCell>
-            <TableRowCell>{job.company?.name}</TableRowCell>
-            <TableRowCell>
-              {new Date(job.applicationDate).toISOString()}
-            </TableRowCell>
-            <TableRowCell>{job.applicationStatus}</TableRowCell>
-            <TableRowCell>{job.description}</TableRowCell>
-            <TableRowCell>
-              <div className="flex justify-end gap-3">
-                <UpdateJobButton id={job.id} />
-                <DeleteJobButton id={job.id} />
-              </div>
-            </TableRowCell>
-          </TableRow>
-        ))}
-      </tbody>
-    </table>
+    // <table className="table-auto rounded-md overflow-hidden border-collapse">
+    //   <thead>
+    //     <TableRow>
+    //       {headers.map((header) => (
+    //         <TableHeaderCell key={header}>{header}</TableHeaderCell>
+    //       ))}
+    //     </TableRow>
+    //   </thead>
+    //   <tbody>
+    //     {jobs.map((job) => (
+    //       <TableRow key={job.id}>
+    //         <TableRowCell>{job.title}</TableRowCell>
+    //         <TableRowCell>{job.company?.name}</TableRowCell>
+    //         <TableRowCell>
+    //           {new Date(job.applicationDate).toISOString()}
+    //         </TableRowCell>
+    //         <TableRowCell>{job.applicationStatus}</TableRowCell>
+    //         <TableRowCell>{job.description}</TableRowCell>
+    //         <TableRowCell>
+    //           <div className="flex justify-end gap-3">
+    //             <UpdateJobButton id={job.id} />
+    //             <DeleteJobButton id={job.id} />
+    //           </div>
+    //         </TableRowCell>
+    //       </TableRow>
+    //     ))}
+    //   </tbody>
+    // </table>
+    <ul>
+      {jobs.map((job) => (
+        <li key={job.id}>
+          <JobCard job={job} />
+        </li>
+      ))}
+    </ul>
   );
 };

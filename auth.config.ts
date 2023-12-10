@@ -16,6 +16,11 @@ export const authConfig = {
       }
       return true;
     },
+    // session({ session, user }) {
+    //   session.user = user;
+    //   console.log({ user });
+    //   return session;
+    // },
   },
   providers: [], // Add providers with an empty array for now
 } satisfies NextAuthConfig;

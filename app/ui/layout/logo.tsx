@@ -1,3 +1,6 @@
+import logo from "@/public/logo.svg";
+import Image from "next/image";
+
 export const Logo = () => {
-  return <h1 className="text-2xl font-bold text-gray-900">Job Hike NZ</h1>;
+  return <Image src={logo} alt="job hike NZ logo" width={96} />;
 };

@@ -9,7 +9,7 @@ async function main() {
       name: "Admin",
       email: "user@nextmail.com",
       password: bcrypt.hashSync("123456", 10),
-      avatar: "https://example.com/avatar.png",
+      avatar: "https://i.pravatar.cc/{size}",
     },
   });
 
@@ -28,6 +28,7 @@ async function main() {
       name: "NextMail",
       address: "123 Main Street",
       website: "https://example.com",
+      logo: "https://example.com/logo.png",
       user: {
         connect: {
           email: user.email,
@@ -49,7 +50,7 @@ async function main() {
       applicationDate: new Date("2023-02-10"),
       applicationMethod: "online",
       contactInformation: "Amy Johnson, Lead Developer",
-      applicationStatus: "in-progress",
+      applicationStatus: "pending",
       notes: "Prepare for technical assessment during the interview.",
       url: "https://example.com/job3",
       source: "Company Website",
