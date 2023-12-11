@@ -18,8 +18,18 @@ const config: Config = {
     colors: {
       primary: colors.slate,
       secondary: {
-        200: "#0284C7",
-        400: "#0077B6",
+        // 200: "#0284C7",
+        // 400: "#0077B6",
+        50: "#F0F7FC",
+        100: "#C2E0FC",
+        200: "#94CAFA",
+        300: "#66B4F8",
+        400: "#3D9DF6",
+        500: "#0284C7", // Original secondary color
+        600: "#0271AC",
+        700: "#025F92",
+        800: "#024D78",
+        900: "#023A5D",
       },
       white: colors.white,
     },

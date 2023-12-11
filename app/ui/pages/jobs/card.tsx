@@ -6,7 +6,7 @@ import Image from "next/image";
 
 const City = ({ city }: { city: string }) => {
   return (
-    <div className="flex items-center gap-1 text-sm font-medium text-secondary-200">
+    <div className="flex items-center gap-1 text-sm font-medium text-secondary-500">
       <MapPinIcon className="w-4 h-4" />
       {city}
     </div>
@@ -15,7 +15,7 @@ const City = ({ city }: { city: string }) => {
 
 const Pill = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="px-2 py-1 text-xs font-light text-secondary-400 bg-secondary-200 bg-opacity-10 rounded-full">
+    <div className="px-2 py-1 text-xs font-light text-secondary-400 bg-secondary-400 bg-opacity-10 rounded-full">
       {children}
     </div>
   );

@@ -5,11 +5,10 @@ import { Table } from "../../../ui/pages/jobs/table";
 
 export default async function Page() {
   return (
-    <PageLayout title="Jobs">
+    <PageLayout title="Jobs" button={<CreateJobButton />}>
       <Suspense fallback={<div>jobs loading</div>}>
         <Table />
       </Suspense>
-      <CreateJobButton />
     </PageLayout>
   );
 }

@@ -11,15 +11,16 @@ export const LinkNav = ({
   href: string;
 }) => {
   const pathname = usePathname();
-  const isActive = pathname === href;
+  const isActive = pathname.includes(href);
 
   return (
     <Link
       href={href}
-      className={clsx(
-        "block hover:bg-primary-900 hover:text-white w-full py-2 px-4 rounded",
-        { "bg-secondary-400 text-white": isActive }
-      )}>
+      className={clsx({
+        "block w-full py-2 px-4 rounded transition-all ": true,
+        "bg-secondary-500 text-white": isActive,
+        "hover:bg-primary-500 hover:bg-opacity-10": !isActive,
+      })}>
       {children}
     </Link>
   );
