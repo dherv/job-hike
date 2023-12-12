@@ -8,7 +8,11 @@ import { CreateJobDto } from "../../lib/validations/jobs";
 export async function findAll(userEmail: string) {
   return await prisma.job.findMany({
     where: { user: { email: userEmail } },
-    include: { company: { include: { city: true } } },
+    include: {
+      contact: true,
+      application: true,
+      company: { include: { city: true } },
+    },
   });
 }
 
@@ -20,7 +24,14 @@ export const findOneById = async (id: string) => {
       },
     },
     include: {
-      company: true,
+      application: true,
+      contact: true,
+      company: {
+        include: {
+          city: true,
+          // contact: true,
+        },
+      },
     },
   });
 };

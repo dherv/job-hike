@@ -1,5 +1,5 @@
 import mockJobs from "../../../../mocks/custom/jobs";
-import { Table } from "./table";
+import { JobList } from "./job-list";
 
 describe("<Table />", () => {
   // FIXME: this work on server component however will fail if there is a nested server action like the DeleteJobButton
@@ -10,7 +10,7 @@ describe("<Table />", () => {
       ok: true,
       json: () => mockJobs,
     });
-    const component = await Table();
+    const component = await JobList();
     cy.mount(component);
     cy.contains("Frontend/UI Designer").should("be.visible");
   });

@@ -10,6 +10,7 @@ export const Button = ({ children }: { children: React.ReactNode }) => {
     </button>
   );
 };
+
 export const CreateJobButton = () => {
   return (
     <LinkButton href={"/dashboard/jobs/create"}>
@@ -24,7 +25,7 @@ export const UpdateJobButton = ({ id }: { id: string }) => {
     <Link
       data-cy="update-job-button"
       href={`/dashboard/jobs/${id}/edit`}
-      className="rounded-md border p-2 hover:bg-gray-100">
+      className="rounded-md border border-primary-400 text-primary-400 p-2 hover:border-primary-600 hover:text-primary-600">
       <PencilIcon className="w-4" />
     </Link>
   );
@@ -36,7 +37,7 @@ export const DeleteJobButton = ({ id }: { id: string }) => {
     <form action={deleteJobWithId}>
       <button
         data-cy="delete-job-button"
-        className="rounded-md border p-2 hover:bg-gray-100">
+        className="rounded-md border border-primary-400 text-primary-400 p-2 hover:border-primary-600 hover:text-primary-600">
         <span className="sr-only">Delete</span>
         <TrashIcon className="w-4" />
       </button>

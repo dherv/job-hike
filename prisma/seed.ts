@@ -23,6 +23,19 @@ async function main() {
     },
   });
 
+  const contact = await prisma.contact.create({
+    data: {
+      name: "Amy Johnson",
+      email: "amyjohnson@agency.com",
+      phone: "123-456-7890",
+      user: {
+        connect: {
+          email: user.email,
+        },
+      },
+    },
+  });
+
   const company = await prisma.company.create({
     data: {
       name: "NextMail",
@@ -47,13 +60,21 @@ async function main() {
       title: "Frontend Developer",
       description:
         "Join our team to work on innovative and user-friendly web applications.",
-      applicationDate: new Date("2023-02-10"),
-      applicationMethod: "online",
-      contactInformation: "Amy Johnson, Lead Developer",
-      applicationStatus: "pending",
       notes: "Prepare for technical assessment during the interview.",
       url: "https://example.com/job3",
       source: "Company Website",
+      contact: {
+        connect: {
+          id: contact.id,
+        },
+      },
+      application: {
+        create: {
+          status: "pending",
+          date: new Date(),
+          method: "online",
+        },
+      },
       user: {
         connect: {
           email: user.email,
