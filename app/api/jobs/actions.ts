@@ -22,6 +22,8 @@ export const createJob = async (_prevState: State, formData: FormData) => {
   // validate the content
   const validatedFields = CreateJobSchema.safeParse({
     title: formData.get("title"),
+    salaryFrom: formData.get("salaryFrom"),
+    salaryTo: formData.get("salaryTo"),
     companyId: formData.get("companyId"),
     applicationDate: formData.get("applicationDate"),
     applicationMethod: formData.get("applicationMethod"),

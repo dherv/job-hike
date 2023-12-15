@@ -58,6 +58,8 @@ async function main() {
   await prisma.job.create({
     data: {
       title: "Frontend Developer",
+      salaryFrom: 90000,
+      salaryTo: 150000,
       description:
         "Join our team to work on innovative and user-friendly web applications.",
       notes: "Prepare for technical assessment during the interview.",

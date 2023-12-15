@@ -1,6 +1,6 @@
 import { fetchCompanies } from "@/app/api/companies/services";
 import { PageLayout } from "@/app/ui/layout/page-layout";
-import { JobCreateForm } from "@/app/ui/pages/jobs/create-form";
+import { JobCreateForm } from "@/app/ui/pages/jobs/job-create-form";
 
 export default async function Page() {
   const companies = await fetchCompanies();

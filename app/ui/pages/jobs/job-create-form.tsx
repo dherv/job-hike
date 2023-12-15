@@ -14,6 +14,16 @@ export const JobCreateForm: FC<{ companies: Company[] }> = ({ companies }) => {
     <form action={dispatch} className="grid grid-cols-3 gap-6 ">
       <Input label="title" name="title" errors={state.errors?.title} />
       <Input
+        label="salary from"
+        name="salaryFrom"
+        errors={state.errors?.salaryFrom}
+      />
+      <Input
+        label="salary to"
+        name="salaryTo"
+        errors={state.errors?.salaryTo}
+      />
+      <Input
         label="application date"
         name="applicationDate"
         errors={state.errors?.applicationDate}

@@ -20,6 +20,8 @@ const JobDetail = ({
 export const JobDetails = ({ job }: { job: JobWithCompany }) => {
   return (
     <div className="flex flex-col gap-4">
+      <JobDetail label="salary from">{job.salaryFrom}</JobDetail>
+      <JobDetail label="salary to">{job.salaryTo}</JobDetail>
       <JobDetail label="application date">
         {job.application?.date.toLocaleDateString()}
       </JobDetail>
