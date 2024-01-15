@@ -17,6 +17,10 @@ const config: Config = {
     },
     colors: {
       primary: colors.slate,
+      dark: {
+        light: "#767676",
+        extraLight: "#D9D9D9",
+      },
       secondary: {
         // 200: "#0284C7",
         // 400: "#0077B6",

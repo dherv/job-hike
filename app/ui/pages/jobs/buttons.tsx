@@ -1,11 +1,26 @@
 import { PencilIcon, PlusIcon, TrashIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { deleteJob } from "../../../api/jobs/actions";
+import { ButtonType } from "../../../lib/types";
 import { LinkButton } from "../../layout/link-button";
 
-export const Button = ({ children }: { children: React.ReactNode }) => {
+export const Button = ({
+  children,
+  type = "button",
+  form,
+  onClick,
+}: {
+  children: React.ReactNode;
+  type?: ButtonType;
+  form?: string;
+  onClick?: () => void;
+}) => {
   return (
-    <button className="flex w-fit bg-primary-900 text-white hover:bg-primary-700 py-2 px-6 rounded">
+    <button
+      onClick={onClick}
+      type={type}
+      form={form}
+      className="flex w-fit bg-primary-900 text-white hover:bg-primary-700 py-2 px-6 rounded">
       {children}
     </button>
   );

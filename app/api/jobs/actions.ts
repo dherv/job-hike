@@ -25,16 +25,17 @@ export const createJob = async (_prevState: State, formData: FormData) => {
     salaryFrom: formData.get("salaryFrom"),
     salaryTo: formData.get("salaryTo"),
     companyId: formData.get("companyId"),
-    applicationDate: formData.get("applicationDate"),
-    applicationMethod: formData.get("applicationMethod"),
-    contactInformation: formData.get("contactInformation"),
+    // applicationDate: formData.get("applicationDate"),
+    // applicationMethod: formData.get("applicationMethod"),
+    // contactInformation: formData.get("contactInformation"),
     notes: formData.get("notes"),
     url: formData.get("url"),
     source: formData.get("source"),
     description: formData.get("description"),
-    applicationStatus: formData.get("applicationStatus"),
+    // applicationStatus: formData.get("applicationStatus"),
   });
 
+  console.log({ validatedFields });
   // If form validation fails, return errors early. Otherwise, continue.
   if (!validatedFields.success) {
     return {
@@ -43,7 +44,7 @@ export const createJob = async (_prevState: State, formData: FormData) => {
     };
   }
 
-  const { companyId, applicationDate, ...data } = validatedFields.data;
+  const { companyId, ...data } = validatedFields.data;
   try {
     const session = await auth();
     if (!session?.user?.email) {
@@ -54,7 +55,7 @@ export const createJob = async (_prevState: State, formData: FormData) => {
       {
         ...data,
         companyId: companyId,
-        applicationDate: new Date(applicationDate).toISOString(),
+        // applicationDate: new Date(applicationDate).toISOString(),
       },
       session.user.email
     );

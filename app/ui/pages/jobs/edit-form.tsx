@@ -28,7 +28,7 @@ export const JobEditForm: FC<{
         errors={state.errors?.title}
         defaultValue={job.title}
       />
-      <Input
+      {/* <Input
         label="application date"
         name="applicationDate"
         errors={state.errors?.applicationDate}
@@ -54,7 +54,7 @@ export const JobEditForm: FC<{
           value: status,
         }))}
         defaultValue={job.application?.status ?? ""}
-      />
+      /> */}
       <Select
         name="companyId"
         label="company"

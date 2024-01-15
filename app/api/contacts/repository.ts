@@ -1,9 +1,9 @@
 import { Prisma, prisma } from "@/app/lib/prisma";
-import { CreateCompanyDto } from "../../lib/validations/companies";
+import { CreateCompanyDto } from "../../lib/validations/contacts";
 
 // TODO: MAKE IT USER RELATED
 // TODO: FIND A WAY TO PASS THE USER ID
-const tableName = "companies";
+const tableName = "contacts";
 
 // TODO: we can override the returned type. better than as alias later in queries.
 export async function findAll(userEmail: string) {

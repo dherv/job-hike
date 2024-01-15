@@ -46,7 +46,7 @@ model City {
 model Company {
   id         String   @id @default(uuid())
   name       String
-  address    String
+  address    String?
   website    String?
   careerPage String?
   source     String?

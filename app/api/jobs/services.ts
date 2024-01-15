@@ -26,7 +26,7 @@ export const createJob = async (job: CreateJobDto, userEmail: string) => {
     return await jobsRepository.createOne(
       {
         ...formattedJob,
-        applicationDate: new Date(job.applicationDate).toISOString(),
+        // applicationDate: new Date(job.applicationDate).toISOString(),
       },
       userEmail,
       companyId
@@ -42,7 +42,7 @@ export const updateJob = async (id: string, job: UdpateJobDto) => {
   try {
     return await jobsRepository.updateOne(id, {
       ...job,
-      applicationDate: new Date(job.applicationDate).toISOString(),
+      // applicationDate: new Date(job.applicationDate).toISOString(),
     });
   } catch (error) {
     console.log(error);

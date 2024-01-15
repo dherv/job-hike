@@ -18,8 +18,16 @@ export const FormSchema = z.object({
     .trim()
     .min(1, { message: "please add a contact phone" })
     .optional(),
-  address: z.string().trim().min(1, { message: "please enter an address" }),
-  cityId: z.string().trim().min(1, { message: "please select a city" }),
+  address: z
+    .string()
+    .trim()
+    .min(1, { message: "please enter an address" })
+    .optional(),
+  cityId: z
+    .string()
+    .trim()
+    .min(1, { message: "please select a city" })
+    .optional(),
   logo: z.string().optional(),
   website: z.string().optional(),
   careerPage: z.string().optional(),

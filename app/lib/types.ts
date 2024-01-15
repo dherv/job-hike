@@ -1,5 +1,10 @@
 import { Prisma } from "@prisma/client";
+import { ButtonHTMLAttributes } from "react";
 
+// Global
+export type ButtonType = ButtonHTMLAttributes<HTMLButtonElement>["type"];
+
+// App
 export type JobWithCompany = Prisma.JobGetPayload<{
   include: {
     application: true;

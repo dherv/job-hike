@@ -1,3 +1,5 @@
+import clsx from "clsx";
+
 export const Errors = ({
   name,
   errors,
@@ -24,9 +26,19 @@ export const Label = ({
   children: string;
 }) => {
   return (
-    <label htmlFor={name} className="block font-medium capitalize mb-1">
+    <label
+      htmlFor={name}
+      className="block w-24 shrink-0 font-light text-primary-400 mb-1 lowercase">
       {children}
     </label>
+  );
+};
+
+export const InputWithLabel = ({ children, className }: any) => {
+  return (
+    <div className={clsx(`flex items-center gap-4 w-full`, className)}>
+      {children}
+    </div>
   );
 };
 
@@ -43,10 +55,10 @@ export const Select = ({
   errors?: string[];
 } & React.InputHTMLAttributes<HTMLSelectElement>) => {
   return (
-    <div>
+    <InputWithLabel>
       <Label name={name}>{label}</Label>
       <select
-        className="outline-none border-2 border-gray-200 rounded-md px-2 py-1 w-full hover:cursor-pointer"
+        className="input"
         id={name}
         name={name}
         defaultValue={props.defaultValue}
@@ -58,7 +70,7 @@ export const Select = ({
         ))}
       </select>
       <Errors name={name} errors={errors} />
-    </div>
+    </InputWithLabel>
   );
 };
 
@@ -73,17 +85,17 @@ export const TextArea = ({
   errors?: string[];
 } & React.InputHTMLAttributes<HTMLTextAreaElement>) => {
   return (
-    <div>
+    <InputWithLabel>
       <Label name={name}>{label}</Label>
       <textarea
-        className="outline-none border-2 border-gray-200 rounded-md px-2 py-1 w-full hover:cursor-pointer"
+        className="input"
         id={name}
         name={name}
         aria-describedby={`${name}-error`}
         defaultValue={props.defaultValue}
       />
       <Errors name={name} errors={errors} />
-    </div>
+    </InputWithLabel>
   );
 };
 export const Input = ({
@@ -97,10 +109,10 @@ export const Input = ({
   errors?: string[];
 } & React.InputHTMLAttributes<HTMLInputElement>) => {
   return (
-    <div>
+    <InputWithLabel>
       <Label name={name}>{label}</Label>
       <input
-        className="outline-none border-2 border-gray-200 rounded-md px-2 py-1 w-full hover:cursor-pointer"
+        className="input"
         id={label}
         type={props.type}
         name={name}
@@ -108,6 +120,6 @@ export const Input = ({
         defaultValue={props.defaultValue}
       />
       <Errors name={name} errors={errors} />
-    </div>
+    </InputWithLabel>
   );
 };
