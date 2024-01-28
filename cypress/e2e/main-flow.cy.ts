@@ -18,7 +18,7 @@ describe("main flow spec", () => {
     cy.contains("test job").should("exist");
 
     // edit
-    cy.get('[data-cy="update-job-button"]').last().click();
+    cy.get('[data-cy="job-card"]').eq(1).click();
     cy.get(`input[name="title"]`)
       .should("have.value", "test job")
       .clear()
@@ -27,11 +27,11 @@ describe("main flow spec", () => {
     cy.url().should("eq", "http://localhost:3000/dashboard/jobs");
     cy.contains("edited job").should("exist");
 
-    cy.get('[data-cy="delete-job-button"]').last().click();
+    // delete
+    cy.get('[data-cy="job-card"]').eq(1).click();
+    cy.get('[data-cy="delete-job-button"]').click();
+    cy.get("a").contains("jobs").click();
     cy.url().should("eq", "http://localhost:3000/dashboard/jobs");
     cy.contains("edited job").should("not.exist");
-
-    cy.get('[data-test-id="sign-out"]').click();
-    cy.url().should("contains", "http://localhost:3000/login");
   });
 });

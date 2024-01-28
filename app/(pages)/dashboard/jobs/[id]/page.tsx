@@ -1,6 +1,7 @@
 import { fetchCompanies } from "@/app/api/companies/services";
 import { fetchJobById } from "@/app/api/jobs/services";
 import { PageLayout } from "@/app/ui/layout/page-layout";
+import { DeleteJobButton } from "@/app/ui/pages/jobs/buttons";
 import { JobEditForm } from "@/app/ui/pages/jobs/edit-form";
 import { notFound } from "next/navigation";
 
@@ -17,7 +18,7 @@ export default async function Page({ params }: { params: { id: string } }) {
     }
 
     return (
-        <PageLayout title="edit job">
+        <PageLayout title={job.title} headerButton={<DeleteJobButton id={id} />}>
             <JobEditForm companies={companies} id={id} job={job} />
         </PageLayout>
     );

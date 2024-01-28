@@ -119,6 +119,7 @@ export const deleteJob = async (id: string) => {
     };
   }
 
-  // no need to redirect since we are on same page
+
   revalidatePath("/dashboard/jobs");
+  redirect("/dashboard/jobs")
 };

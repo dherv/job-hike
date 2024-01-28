@@ -16,7 +16,7 @@ export const JobCard = ({ job }: { job: JobWithCompany }) => {
   const handleClick = () => router.push(`jobs/${job.id}`)
 
   return (
-    <div className="hover:cursor-pointer" onClick={handleClick}>
+    <div data-cy="job-card" className="hover:cursor-pointer" onClick={handleClick}>
       <Card>
         <div className="flex justify-between items-center">
           <div className="flex gap-3">
