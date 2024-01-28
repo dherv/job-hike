@@ -2,6 +2,12 @@
  * @type {import('next').NextConfig}
  */
 const nextConfig = {
+  // TODO: use to launch github codespace - check later if save to keep
+  experimental: {
+    serverActions: {
+        allowedOrigins: ["localhost:3000"],
+      },
+  },
   images: {
     remotePatterns: [
       {
