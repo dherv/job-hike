@@ -13,8 +13,7 @@ export const Button = ({ children }: { children: React.ReactNode }) => {
 export const CreateJobButton = () => {
   return (
     <LinkButton href={"/dashboard/jobs/create"}>
-      <span>add</span>
-      <PlusIcon className="w-5" />
+      <span className="capitalize text-xs">add</span>
     </LinkButton>
   );
 };
